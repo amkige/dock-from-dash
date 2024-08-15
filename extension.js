@@ -193,9 +193,24 @@ class Dock extends Dash.Dash {
             },
         });
     }
+    
+    // https://github.com/eonpatapon/gnome-shell-extension-caffeine/blob/0da046a02437690fba10ed94ef511ca2f48511a2/caffeine%40patapon.info/extension.js#L427
+    _isFullscreen() {
+        let nbMonitors = global.display.get_n_monitors();
+        let isFullscreen = false;
+        
+        for (let i = 0; i < nbMonitors; i++) {
+            if (global.display.get_monitor_in_fullscreen(i)) {
+                isFullscreen = true;
+                break;
+            }
+        }
+        
+        return isFullscreen;
+    }
 
     _show_dock() {
-        if (this._dock_animated || !this.work_area) {
+        if (this._dock_animated || !this.work_area || this._isFullscreen()) {
             return;
         }
 
