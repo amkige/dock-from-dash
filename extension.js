@@ -121,7 +121,7 @@ const Dock = GObject.registerClass(
         this
       );
       this.showAppsButton.connectObject(
-        "button-release-event",
+        "clicked",
         () => Main.overview.showApps(),
         this
       );
